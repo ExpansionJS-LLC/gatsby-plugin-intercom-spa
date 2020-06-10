@@ -1,19 +1,35 @@
-const isEnabled = () => ((window.IntercomIncludeInDevelopment || window.FromURL || process.env.NODE_ENV === `production`) && typeof Intercom === `function` && window.IntercomAppId)
+const isEnabled = () =>
+  (window.IntercomIncludeInDevelopment ||
+    process.env.NODE_ENV === `production`) &&
+  typeof Intercom === `function` &&
+  window.IntercomAppId;
 
 exports.onInitialClientRender = () => {
   if (!isEnabled()) {
-    return
+    return;
   }
 
-  window.Intercom('boot', {
-    app_id: window.IntercomAppId
-  })
-}
+  window.intercomSettings = {
+    app_id: window.IntercomAppId,
+    From_URL: window.location.href
+  };
 
-exports.onRouteUpdate = function ({ location }) {
+  if (window.location.pathname !== "/contact/") {
+    window.Intercom("boot", {
+      app_id: window.IntercomAppId
+    });
+  }
+};
+
+exports.onRouteUpdate = function({ location }) {
   if (!isEnabled()) {
-    return
+    return;
   }
-
-  window.Intercom('update')
-}
+  window.intercomSettings = {
+    app_id: window.IntercomAppId,
+    From_URL: location.href
+  };
+  if (location.pathname !== "/contact/") {
+    window.Intercom("update", window.intercomSettings);
+  }
+};
