@@ -1,4 +1,4 @@
-const isEnabled = () => ((window.IntercomIncludeInDevelopment || process.env.NODE_ENV === `production`) && typeof Intercom === `function` && window.IntercomAppId)
+const isEnabled = () => ((window.IntercomIncludeInDevelopment || window.FromURL || process.env.NODE_ENV === `production`) && typeof Intercom === `function` && window.IntercomAppId)
 
 exports.onInitialClientRender = () => {
   if (!isEnabled()) {

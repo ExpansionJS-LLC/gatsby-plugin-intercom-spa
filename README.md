@@ -16,6 +16,7 @@ plugins: [
       app_id: 'YOUR_INTERCOM_APP_ID',
       include_in_development: true,
       delay_timeout: 0
+      from_url:''
     }
   }
 ]
