@@ -31,5 +31,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/toriihq/gatsby-plugin-intercom-spa.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
